@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     console.log('GET /');
     res.writeHead(200, {'Content-Type': 'text/plain'});
+    // if there's a query parameter, set the message
+    if (req.query.message) {
+        message = req.query.message;
+    }
     res.end(message + '\n');
 });
 
@@ -21,14 +25,7 @@ app.post('/', function(req, res){
     res.end();
 });
 
-app.get('/message', function(req, res){
-    console.log('GET /message');
-    message = req.query.message;
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end(message + '\n');
-});
 
-
-var port = process.env.PORT || 3000;;
+var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Listening on port', port);
